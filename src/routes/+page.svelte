@@ -2,13 +2,9 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	// import animeJson from '$lib/json/anime-offline-database.json';
+	import animeJson from '$lib/json/parsed-anime-list-mini.json';
 
-	// console.log(
-	// 	animeJson?.data.filter((a) => {
-	// 		return a.type === 'MOVIE';
-	// 	})
-	// );
+	console.log(animeJson);
 </script>
 
 `
