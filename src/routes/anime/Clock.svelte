@@ -2,38 +2,39 @@
 	import { tweened } from 'svelte/motion';
 	import moment from 'moment';
 
-	const res = fetch('http://0.0.0.0:8000/time');
+	$: timeUntil = 0;
+	$: hoursRemain = 0;
+	$: minutesRemain = 0;
+	$: secondsRemain = 0;
+	const getTimeUntil = async () => {
+		const res = await fetch('http://0.0.0.0:8000/time');
+		const time = await res.json();
+		timeUntil = await time.time_until;
 
-	let timeUntil;
-	res.then((r) => {
-		timeUntil = r;
-		console.log(timeUntil);
-	});
+		hoursRemain = Math.floor(timeUntil / 3600);
+		minutesRemain = Math.floor((timeUntil - hoursRemain * 3600) / 60);
+		secondsRemain = Math.floor(timeUntil - hoursRemain * 60 * 60 - minutesRemain * 60);
 
-	const now = moment();
-	const eod = moment().endOf('day');
+		console.log(hoursRemain, minutesRemain, secondsRemain, timeUntil);
 
-	let clock = moment.duration(moment(eod).diff(now));
-
-	$: hoursRemain = clock.hours();
-	$: minutesRemain = clock.minutes();
-	$: secondsRemain = clock.seconds();
-
-	const updateTime = () => {
-		secondsRemain -= 1;
-		if (secondsRemain == 0) {
-			minutesRemain -= 1;
-			if (minutesRemain == 0) {
-				hoursRemain -= 1;
-			} else if (minutesRemain < 0) {
-				minutesRemain = 60;
+		const updateTime = () => {
+			secondsRemain -= 1;
+			if (secondsRemain == 0) {
+				minutesRemain -= 1;
+				if (minutesRemain == 0) {
+					hoursRemain -= 1;
+				} else if (minutesRemain < 0) {
+					minutesRemain = 60;
+				}
+			} else if (secondsRemain < 0) {
+				secondsRemain = 60;
 			}
-		} else if (secondsRemain < 0) {
-			secondsRemain = 60;
-		}
+		};
+
+		setInterval(updateTime, 1000);
 	};
 
-	setInterval(updateTime, 1000);
+	getTimeUntil();
 </script>
 
 <div class="clock">
