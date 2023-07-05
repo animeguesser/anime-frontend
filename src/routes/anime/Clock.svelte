@@ -2,7 +2,13 @@
 	import { tweened } from 'svelte/motion';
 	import moment from 'moment';
 
-	// const res = fetch("")
+	const res = fetch('http://0.0.0.0:8000/time');
+
+	let timeUntil;
+	res.then((r) => {
+		timeUntil = r;
+		console.log(timeUntil);
+	});
 
 	const now = moment();
 	const eod = moment().endOf('day');
