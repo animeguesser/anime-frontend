@@ -1,10 +1,23 @@
 <script>
 	import Clock from './Clock.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Game from './Game.svelte';
 	import animeJson from '$lib/json/parsed-anime-list-mini.json';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-	console.log(animeJson);
+	let timeUntil = 0;
+	let currentDay = 0;
+	let attempts = ['O', 'O', 'O', 'O', 'O', 'O'];
+	let images = [];
+
+	onMount(async () => {
+		const res = await fetch('http://0.0.0.0:8000/time');
+		const time = await res.json();
+		timeUntil = await time.timeUntil;
+		currentDay = await time.currentDay;
+		let currentAttmept = browser ? localStorage.get(`day${currentDay}`) : attempts;
+		attempts = currentAttmept ? currentAttmept.split(',') : ['O', 'O', 'O', 'O', 'O', 'O'];
+	});
 </script>
 
 `
@@ -14,7 +27,8 @@
 </svelte:head>
 
 <section>
-	<Clock />
+	<Clock {timeUntil} />
+	<Game {attempts} {images} {currentDay} />
 </section>
 
 <style>
