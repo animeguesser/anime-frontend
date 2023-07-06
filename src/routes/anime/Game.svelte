@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import day from '$lib/shared/stores/day';
 
 	export let attempts;
 	export let currentDay;
@@ -14,7 +15,8 @@
 		if (!res && updateIndex >= 0) {
 			currentGame[updateIndex] = 'X';
 			console.log(currentDay);
-			browser ?? localStorage.setItem(`day${currentDay}`, currentGame.toString());
+			day.set(currentDay);
+			//browser ?? localStorage.setItem(`day${currentDay}`, currentGame.toString());
 		} else if (res && updateIndex > 0) {
 			currentGame[updateIndex] = '!';
 		}
