@@ -4,7 +4,7 @@
 	import animeJson from '$lib/json/parsed-anime-list-mini.json';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import day from '$lib/shared/stores/day';
+	import playerHistory from '$lib/shared/stores/playerHistory';
 
 	let timeUntil = 0;
 	let currentDay = 0;
@@ -16,9 +16,9 @@
 		const time = await res.json();
 		timeUntil = await time.timeUntil;
 		currentDay = await time.currentDay;
-		console.log($day);
-		let currentAttmept = browser ? localStorage.get(`day${day}`) : attempts;
-		attempts = currentAttmept ? currentAttmept.split(',') : ['O', 'O', 'O', 'O', 'O', 'O'];
+		console.log(JSON.parse($playerHistory)[currentDay]);
+		let currentAttempt = JSON.parse($playerHistory)[currentDay];
+		attempts = currentAttempt ? currentAttempt : ['O', 'O', 'O', 'O', 'O', 'O'];
 	});
 </script>
 

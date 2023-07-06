@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import day from '$lib/shared/stores/day';
+	import playerHistory from '$lib/shared/stores/playerHistory';
 
 	export let attempts;
 	export let currentDay;
@@ -14,9 +14,7 @@
 		});
 		if (!res && updateIndex >= 0) {
 			currentGame[updateIndex] = 'X';
-			console.log(currentDay);
-			day.set(currentDay);
-			//browser ?? localStorage.setItem(`day${currentDay}`, currentGame.toString());
+			playerHistory.set(JSON.stringify({ ...playerHistory, [currentDay]: currentGame }));
 		} else if (res && updateIndex > 0) {
 			currentGame[updateIndex] = '!';
 		}
