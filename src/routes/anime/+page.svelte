@@ -6,8 +6,8 @@
 
 	let timeUntil = 0;
 	let currentDay = 0;
-	let state = 'playing';
-	let guesses = [];
+	$: state = undefined;
+	$: guesses = undefined;
 	let images = [];
 
 	onMount(async () => {
@@ -16,18 +16,23 @@
 		timeUntil = await time.timeUntil;
 		currentDay = await time.currentDay;
 		if (browser) {
+			guesses = [];
+			state = 'playing';
 			let localState = localStorage.getItem(`day${currentDay}state`);
 			if (localState) {
 				state = localState;
 			} else {
 				localStorage.setItem(`day${currentDay}state`, state);
 			}
+			let tempArr = [];
 			for (let i = 0; i < 5; i++) {
 				let guess = localStorage.getItem(`day${currentDay}guess${i}`);
+
 				if (guess) {
-					guesses.push(guess);
+					tempArr.push(guess);
 				}
 			}
+			guesses = tempArr;
 		}
 	});
 </script>
@@ -39,7 +44,9 @@
 </svelte:head>
 
 <section>
-	<Game {state} {guesses} {images} {currentDay} />
+	{#if guesses && state}
+		<Game {state} {guesses} {images} {currentDay} />
+	{/if}
 	<Clock {timeUntil} />
 </section>
 

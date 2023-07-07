@@ -5,11 +5,12 @@
 	import ComboBox from './ComboBox.svelte';
 
 	export let state;
-	export let currentDay;
 	export let guesses;
+	export let currentDay;
+
 	let value;
 
-	$: currentGame = state;
+	let currentGame = state;
 	let attempts = [];
 	const aniList = animeJson
 		.map((a) => ({ text: a?.title, value: a?.title.toLowerCase() }))
@@ -23,15 +24,13 @@
 			} else {
 				attempt = 'X';
 			}
-		} else if (currentGame === 'playing' || currentGame === 'failed') {
+		} else if ((currentGame === 'playing' || currentGame === 'failed') && guesses[i]) {
 			if (guesses[i].length > 0) {
 				attempt = 'X';
 			}
 		}
 		attempts.push(attempt);
 	}
-
-	console.log(guesses, attempts);
 
 	const submit = async () => {
 		let guess = value ? value : 'skipped';
