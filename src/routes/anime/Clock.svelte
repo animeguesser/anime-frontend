@@ -1,22 +1,13 @@
 <script lang="ts">
 	export let timeUntil = 0;
 
-	$: hoursRemain = Math.floor(timeUntil / 3600);
-	$: minutesRemain = Math.floor((timeUntil - hoursRemain * 3600) / 60);
-	$: secondsRemain = Math.floor(timeUntil - hoursRemain * 60 * 60 - minutesRemain * 60);
+	$: timeRemaining = timeUntil;
+	$: hoursRemain = Math.floor(timeRemaining / 3600);
+	$: minutesRemain = Math.floor((timeRemaining - hoursRemain * 3600) / 60);
+	$: secondsRemain = Math.floor(timeRemaining - hoursRemain * 3600 - minutesRemain * 60);
 
 	const updateTime = () => {
-		secondsRemain -= 1;
-		if (secondsRemain == 0) {
-			minutesRemain -= 1;
-			if (minutesRemain == 0) {
-				hoursRemain -= 1;
-			} else if (minutesRemain < 0) {
-				minutesRemain = 59;
-			}
-		} else if (secondsRemain < 0 && minutesRemain > 0 && hoursRemain >= 0) {
-			secondsRemain = 59;
-		}
+		timeRemaining -= 1;
 	};
 
 	setInterval(updateTime, 1000);

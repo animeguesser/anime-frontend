@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import animeJson from '$lib/json/parsed-anime-list-mini.json';
 	import Context from './Context.svelte';
 	import ComboBox from './ComboBox.svelte';
 	import { onMount } from 'svelte';
@@ -82,7 +81,7 @@
 	<div class="game__search">
 		<Context>
 			<div class="stack">
-				<form on:{onSubmit}>
+				<form on:submit={onSubmit}>
 					<ComboBox
 						label="Anime"
 						name="anime"
