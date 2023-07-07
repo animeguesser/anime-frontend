@@ -1,14 +1,13 @@
 <script>
 	import Clock from './Clock.svelte';
 	import Game from './Game.svelte';
-	import animeJson from '$lib/json/parsed-anime-list-mini.json';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import playerHistory from '$lib/shared/stores/playerHistory';
 
 	let timeUntil = 0;
 	let currentDay = 0;
-	let attempts = ['O', 'O', 'O', 'O', 'O', 'O'];
+	let state = 'playing';
+	let guesses = [];
 	let images = [];
 
 	onMount(async () => {
@@ -16,9 +15,20 @@
 		const time = await res.json();
 		timeUntil = await time.timeUntil;
 		currentDay = await time.currentDay;
-		console.log(JSON.parse($playerHistory)[currentDay]);
-		let currentAttempt = JSON.parse($playerHistory)[currentDay];
-		attempts = currentAttempt ? currentAttempt : ['O', 'O', 'O', 'O', 'O', 'O'];
+		if (browser) {
+			let localState = localStorage.getItem(`day${currentDay}state`);
+			if (localState) {
+				state = localState;
+			} else {
+				localStorage.setItem(`day${currentDay}state`, state);
+			}
+			for (let i = 0; i < 5; i++) {
+				let guess = localStorage.getItem(`day${currentDay}guess${i}`);
+				if (guess) {
+					guesses.push(guess);
+				}
+			}
+		}
 	});
 </script>
 
@@ -29,8 +39,8 @@
 </svelte:head>
 
 <section>
+	<Game {state} {guesses} {images} {currentDay} />
 	<Clock {timeUntil} />
-	<Game {attempts} {images} {currentDay} />
 </section>
 
 <style>

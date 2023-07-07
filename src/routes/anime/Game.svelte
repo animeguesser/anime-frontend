@@ -1,31 +1,74 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import playerHistory from '$lib/shared/stores/playerHistory';
+	import animeJson from '$lib/json/parsed-anime-list-mini.json';
+	import Context from './Context.svelte';
+	import ComboBox from './ComboBox.svelte';
 
-	export let attempts;
+	export let state;
 	export let currentDay;
+	export let guesses;
+	let value;
 
-	$: currentGame = attempts;
+	$: currentGame = state;
+	let attempts = [];
+	const aniList = animeJson
+		.map((a) => ({ text: a?.title, value: a?.title.toLowerCase() }))
+		.slice(0, 35);
+
+	for (let i = 0; i < 5; i++) {
+		let attempt = 'O';
+		if (currentGame === 'win') {
+			if (i + 1 === guesses.length) {
+				attempt = '!';
+			} else {
+				attempt = 'X';
+			}
+		} else if (currentGame === 'playing' || currentGame === 'failed') {
+			if (guesses[i].length > 0) {
+				attempt = 'X';
+			}
+		}
+		attempts.push(attempt);
+	}
+
+	console.log(guesses, attempts);
 
 	const submit = async () => {
+		let guess = value ? value : 'skipped';
 		let res = false;
-		let updateIndex = currentGame.findIndex((attempt) => {
+
+		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
 		});
-		if (!res && updateIndex >= 0) {
-			currentGame[updateIndex] = 'X';
-			playerHistory.set(JSON.stringify({ ...playerHistory, [currentDay]: currentGame }));
-		} else if (res && updateIndex > 0) {
-			currentGame[updateIndex] = '!';
+		if (browser && !res && updateIndex >= 0) {
+			attempts[updateIndex] = 'X';
+			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
+		} else if (guess && updateIndex > 0) {
+			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
+			localStorage.setItem(`day${currentDay}state`, 'win');
+			attempts[updateIndex] = '!';
 		}
 	};
-
-	setInterval(submit, 1000);
 </script>
 
 <div class="game">
-	<div>
-		{currentGame}
+	<div class="game__search">
+		<Context>
+			<div class="stack">
+				<form on:submit={submit}>
+					<ComboBox
+						label="Anime"
+						name="anime"
+						placeholder="Search for Anime..."
+						options={aniList}
+						bind:value
+					/>
+				</form>
+			</div>
+		</Context>
+	</div>
+	<div class="game__attempts">
+		{attempts}
 	</div>
 </div>
 
@@ -34,7 +77,13 @@
 		display: flex;
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 		margin: 1rem 0;
+	}
+
+	.game__search {
 	}
 
 	.game-viewport {
