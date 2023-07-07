@@ -20,7 +20,7 @@
 				<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
 				<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
 				<span class="secs"
-					>{secondsRemain < 10 && secondsRemain > 0 ? `0${secondsRemain}` : secondsRemain}s</span
+					>{secondsRemain < 10 && secondsRemain >= 0 ? `0${secondsRemain}` : secondsRemain}s</span
 				>
 			</strong>
 		</div>

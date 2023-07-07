@@ -32,12 +32,20 @@
 
 	const onSubmit = async () => {
 		let guess = value ? value : 'skipped';
-		let res = false;
-
+		const res = await fetch('http://0.0.0.0:8000/validate', {
+			method: 'POST',
+			credentials: 'same-origin', // include, *same-origin, omit
+			headers: {
+				'Content-Type': 'application/json'
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: JSON.stringify({ validate: guess })
+		});
+		let validate = await res.json();
 		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
 		});
-		if (browser && !res && updateIndex >= 0) {
+		if (browser && !validate.validate && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 		} else if (guess && updateIndex > 0) {
