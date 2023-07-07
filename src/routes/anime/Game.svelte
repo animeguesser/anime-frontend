@@ -3,18 +3,17 @@
 	import animeJson from '$lib/json/parsed-anime-list-mini.json';
 	import Context from './Context.svelte';
 	import ComboBox from './ComboBox.svelte';
+	import { onMount } from 'svelte';
 
 	export let state;
 	export let guesses;
 	export let currentDay;
 
-	let value;
+	let value = '';
 
 	let currentGame = state;
 	let attempts = [];
-	const aniList = animeJson
-		.map((a) => ({ text: a?.title, value: a?.title.toLowerCase() }))
-		.slice(0, 35);
+	$: aniList = [];
 
 	for (let i = 0; i < 5; i++) {
 		let attempt = 'O';
@@ -32,7 +31,7 @@
 		attempts.push(attempt);
 	}
 
-	const submit = async () => {
+	const onSubmit = async () => {
 		let guess = value ? value : 'skipped';
 		let res = false;
 
@@ -48,18 +47,50 @@
 			attempts[updateIndex] = '!';
 		}
 	};
+
+	const onChange = async (e) => {
+		let search = e.target.value;
+		if (search.length > 2) {
+			const res = await fetch('http://0.0.0.0:8000/search', {
+				method: 'POST',
+				credentials: 'same-origin', // include, *same-origin, omit
+				headers: {
+					'Content-Type': 'application/json'
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: JSON.stringify({ query: search })
+			});
+			aniList = await res.json();
+		}
+	};
+
+	onMount(async () => {
+		const res = await fetch('http://0.0.0.0:8000/search', {
+			method: 'POST',
+			credentials: 'same-origin', // include, *same-origin, omit
+			headers: {
+				'Content-Type': 'application/json'
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: JSON.stringify({ query: '' })
+		});
+		aniList = await res.json();
+	});
 </script>
 
 <div class="game">
 	<div class="game__search">
 		<Context>
 			<div class="stack">
-				<form on:submit={submit}>
+				<form on:{onSubmit}>
 					<ComboBox
 						label="Anime"
 						name="anime"
 						placeholder="Search for Anime..."
-						options={aniList}
+						on:input={onChange}
+						options={aniList.titles
+							? aniList.titles.map((title) => ({ text: title, value: title.toLowerCase() }))
+							: null}
 						bind:value
 					/>
 				</form>
