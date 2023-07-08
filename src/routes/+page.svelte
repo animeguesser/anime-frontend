@@ -1,10 +1,46 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import animeJson from '$lib/json/parsed-anime-list-mini.json';
+	import Clock from './Clock.svelte';
+	import Game from './Game.svelte';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
-	console.log(animeJson);
+	let timeUntil = 0;
+	let currentDay = 0;
+	$: state = undefined;
+	$: guesses = undefined;
+	let images = [];
+
+	onMount(async () => {
+		const res = await fetch('https://api.animeguess.moe/time');
+		const time = await res.json();
+		timeUntil = await time.timeUntil;
+		let dayUrl = $page.url.search;
+		if (dayUrl.length > 0) {
+			currentDay = Number($page.url.search.slice(4));
+		} else {
+			currentDay = await time.currentDay;
+		}
+		if (browser) {
+			guesses = [];
+			state = 'playing';
+			let localState = localStorage.getItem(`day${currentDay}state`);
+			if (localState) {
+				state = localState;
+			} else {
+				localStorage.setItem(`day${currentDay}state`, state);
+			}
+			let tempArr = [];
+			for (let i = 0; i < 5; i++) {
+				let guess = localStorage.getItem(`day${currentDay}guess${i}`);
+
+				if (guess) {
+					tempArr.push(guess);
+				}
+			}
+			guesses = tempArr;
+		}
+	});
 </script>
 
 `
@@ -14,22 +50,10 @@
 </svelte:head>
 
 <section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+	{#if guesses && state}
+		<Game {state} {guesses} {images} {currentDay} />
+	{/if}
+	<Clock {timeUntil} />
 </section>
 
 <style>
