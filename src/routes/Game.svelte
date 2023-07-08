@@ -13,15 +13,15 @@
 	let currentGame = state;
 	let attempts = [];
 	$: aniList = [];
+	$: selected = 1;
 	let timeoutIdForSearch = null;
-
-	console.log('guesses', guesses);
 
 	for (let i = 0; i < 5; i++) {
 		let attempt = 'O';
 		if (currentGame === 'win') {
 			if (i + 1 === guesses.length) {
 				attempt = '!';
+				selected = i + 1;
 			} else {
 				attempt = 'X';
 			}
@@ -29,6 +29,9 @@
 			if (guesses[i].length > 0) {
 				attempt = 'X';
 			}
+		}
+		if ((attempt = 'O' && selected === 1)) {
+			selected = i + 1;
 		}
 		attempts.push(attempt);
 	}
@@ -79,6 +82,11 @@
 		}
 	};
 
+	const changeSelected = (value) => {
+		selected = Number(value.target.id) + 1;
+		console.log('selected', selected);
+	};
+
 	onMount(async () => {
 		const res = await fetch('http://localhost:8000/search', {
 			method: 'POST',
@@ -94,6 +102,9 @@
 </script>
 
 <div class="game">
+	<div class="img__container">
+		<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
+	</div>
 	<div class="game__search">
 		<Context>
 			<div class="stack">
@@ -116,8 +127,8 @@
 		{attempts}
 	</div>
 
-	{#each guesses as guess}
-		<div>{guess}</div>
+	{#each guesses as guess, i}
+		<div id={i} on:click={changeSelected}>{guess}</div>
 	{/each}
 </div>
 
@@ -159,6 +170,14 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
+	}
+
+	.img {
+		height: 100%;
+		width: 100%;
+	}
+	.img__container {
+		max-width: 30rem;
 	}
 
 	.hidden {
