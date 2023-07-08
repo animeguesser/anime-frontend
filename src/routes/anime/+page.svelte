@@ -11,7 +11,7 @@
 	let images = [];
 
 	onMount(async () => {
-		const res = await fetch('http://0.0.0.0:8000/time');
+		const res = await fetch('https://api.animeguess.moe/time');
 		const time = await res.json();
 		timeUntil = await time.timeUntil;
 		currentDay = await time.currentDay;

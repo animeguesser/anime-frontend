@@ -13,6 +13,7 @@
 	let currentGame = state;
 	let attempts = [];
 	$: aniList = [];
+	let timeoutIdForSearch = null;
 
 	for (let i = 0; i < 5; i++) {
 		let attempt = 'O';
@@ -34,7 +35,7 @@
 		let guess = value ? value : 'skipped';
 		const res = await fetch('http://0.0.0.0:8000/validate', {
 			method: 'POST',
-			credentials: 'same-origin', // include, *same-origin, omit
+			credentials: 'omit', // include, *same-origin, omit
 			headers: {
 				'Content-Type': 'application/json'
 				// 'Content-Type': 'application/x-www-form-urlencoded',
@@ -58,23 +59,28 @@
 	const onChange = async (e) => {
 		let search = e.target.value;
 		if (search.length > 2) {
-			const res = await fetch('http://0.0.0.0:8000/search', {
-				method: 'POST',
-				credentials: 'same-origin', // include, *same-origin, omit
-				headers: {
-					'Content-Type': 'application/json'
-					// 'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				body: JSON.stringify({ query: search })
-			});
-			aniList = await res.json();
+			if (timeoutIdForSearch !== null) {
+				clearTimeout(timeoutIdForSearch)
+			}
+			timeoutIdForSearch = setTimeout(async function() {
+				const res = await fetch('https://api.animeguess.moe/search', {
+					method: 'POST',
+					credentials: 'omit', // include, *same-origin, omit
+					headers: {
+						'Content-Type': 'application/json'
+						// 'Content-Type': 'application/x-www-form-urlencoded',
+					},
+					body: JSON.stringify({ query: search })
+				});
+				aniList = await res.json();	
+			}, 350);
 		}
 	};
 
 	onMount(async () => {
-		const res = await fetch('http://0.0.0.0:8000/search', {
+		const res = await fetch('http://localhost:8000/search', {
 			method: 'POST',
-			credentials: 'same-origin', // include, *same-origin, omit
+			credentials: 'omit', // include, *same-origin, omit
 			headers: {
 				'Content-Type': 'application/json'
 				// 'Content-Type': 'application/x-www-form-urlencoded',
