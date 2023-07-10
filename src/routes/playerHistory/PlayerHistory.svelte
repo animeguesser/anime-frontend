@@ -15,6 +15,8 @@
 				if (i + 1 === guesses.length) {
 					attempt = '!';
 					selected = i + 1;
+				} else if (i + 1 > guesses.length) {
+					attempt = 'O';
 				} else {
 					attempt = 'X';
 				}
@@ -40,8 +42,6 @@
 
 			if (guess) {
 				tempArr.push(guess);
-			} else {
-				tempArr.push('');
 			}
 			console.log(guess);
 		}
@@ -49,27 +49,22 @@
 		return tempArr;
 	};
 
-	const onSelectDay = (e) => {
-		console.log(e.target.id);
-	};
-
 	onMount(async () => {
 		console.log('history', history);
 		if (browser) {
-			for (let i = 0; i < currentDay; i++) {
+			for (let i = 1; i < currentDay; i++) {
 				let guesses = [];
 				let attempts = [];
 				let state = 'unplayed';
-				let localState = await localStorage.getItem(`day${currentDay}state`);
+				let localState = await localStorage.getItem(`day${i}state`);
 				if (localState) {
 					state = localState;
 				}
 				guesses = await getGuesses(i);
-				console.log('guesses', guesses, i);
 				attempts = await getAttempts(state, guesses);
 				console.log(guesses, attempts);
 
-				history[i] = { attempts, state };
+				history[i - 1] = { attempts, state };
 			}
 		}
 		console.log(history);

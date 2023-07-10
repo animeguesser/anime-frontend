@@ -23,6 +23,8 @@
 			if (i + 1 === guesses.length) {
 				attempt = '!';
 				selected = i + 1;
+			} else if (i + 1 > guesses.length) {
+				attempt = 'O';
 			} else {
 				attempt = 'X';
 			}
@@ -38,17 +40,23 @@
 	}
 
 	const onSubmit = async () => {
-		let guess = value ? value : 'skipped';
-
-		console.log(guess, metadata?.answer);
+		let guess = value ? value.split('[')[0] : 'skipped';
 
 		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
 		});
+
+		console.log(
+			guess,
+			metadata?.answer,
+			guess === metadata?.answer && updateIndex >= 0,
+			updateIndex
+		);
+
 		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
-		} else if (guess === metadata?.answer && updateIndex > 0) {
+		} else if (guess === metadata?.answer) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
 			attempts[updateIndex] = '!';
