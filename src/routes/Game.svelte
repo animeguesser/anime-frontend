@@ -14,6 +14,7 @@
 	let attempts = [];
 	$: aniList = [];
 	$: selected = 1;
+	$: metadata = {};
 	let timeoutIdForSearch = null;
 
 	for (let i = 0; i < 5; i++) {
@@ -30,7 +31,7 @@
 				attempt = 'X';
 			}
 		}
-		if ((attempt = 'O' && selected === 1)) {
+		if (attempt === 'O' && selected === 1) {
 			selected = i + 1;
 		}
 		attempts.push(attempt);
@@ -38,23 +39,16 @@
 
 	const onSubmit = async () => {
 		let guess = value ? value : 'skipped';
-		const res = await fetch('http://0.0.0.0:8000/validate', {
-			method: 'POST',
-			credentials: 'omit', // include, *same-origin, omit
-			headers: {
-				'Content-Type': 'application/json'
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: JSON.stringify({ validate: guess })
-		});
-		let validate = await res.json();
+
+		console.log(guess, metadata?.answer);
+
 		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
 		});
-		if (browser && !validate.validate && updateIndex >= 0) {
+		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
-		} else if (guess && updateIndex > 0) {
+		} else if (guess === metadata?.answer && updateIndex > 0) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
 			attempts[updateIndex] = '!';
@@ -97,6 +91,15 @@
 			},
 			body: JSON.stringify({ query: '' })
 		});
+		const metadataRes = await fetch('https://www.animeguess.moe/days/6/metadata.json', {
+			method: 'GET',
+			credentials: 'omit', // include, *same-origin, omit
+			headers: {
+				'Content-Type': 'application/json'
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			}
+		});
+		metadata = await metadataRes.json();
 		aniList = await res.json();
 	});
 </script>
@@ -123,10 +126,10 @@
 			</div>
 		</Context>
 	</div>
+	<div />
 	<div class="game__attempts">
 		{attempts}
 	</div>
-
 	{#each guesses as guess, i}
 		<div id={i} on:click={changeSelected}>{guess}</div>
 	{/each}
