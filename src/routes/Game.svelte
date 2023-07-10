@@ -74,7 +74,7 @@
 				});
 				aniList = await res.json();
 				console.log('aniList', aniList);
-			}, 100);
+			}, 200);
 		}
 	};
 

@@ -15,25 +15,7 @@
 	export let value = '';
 
 	export let filter = (text) => {
-		const sanitized = text.trim().toLowerCase();
-
-		return options.reduce((a, o) => {
-			let match;
-
-			if (o.options) {
-				const options = o.options.filter((o) => o.text.toLowerCase().includes(sanitized));
-
-				if (options.length) {
-					match = { ...o, options };
-				}
-			} else if (o.text.toLowerCase().includes(sanitized)) {
-				match = o;
-			}
-
-			match && a.push(match);
-
-			return a;
-		}, []);
+		return options;
 	};
 
 	let listElement;
@@ -156,6 +138,7 @@
 			o.options ? o.options.some((o) => o.text === inputValue) : o.text === inputValue
 		);
 
+		isListOpen = false;
 		list = inputValue === '' || isExactMatch ? options : await filter(inputValue);
 		isListOpen = true;
 	}
