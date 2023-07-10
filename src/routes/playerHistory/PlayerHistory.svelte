@@ -52,7 +52,7 @@
 	onMount(async () => {
 		console.log('history', history);
 		if (browser) {
-			for (let i = 1; i < currentDay; i++) {
+			for (let i = 1; i < currentDay + 1; i++) {
 				let guesses = [];
 				let attempts = [];
 				let state = 'unplayed';

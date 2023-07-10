@@ -41,25 +41,24 @@
 
 	const onSubmit = async () => {
 		let guess = value ? value.split('[')[0] : 'skipped';
+		document.getElementById('comboBox').reset();
 
 		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
 		});
 
-		console.log(
-			guess,
-			metadata?.answer,
-			guess === metadata?.answer && updateIndex >= 0,
-			updateIndex
-		);
+		if (currentGame === 'win') {
+			return false;
+		}
 
 		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			selected += 1;
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
-		} else if (guess === metadata?.answer) {
+		} else if (guess === metadata?.answer && updateIndex >= 0) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
+			currentGame = 'win';
 			attempts[updateIndex] = '!';
 		}
 		return false;
@@ -93,8 +92,6 @@
 	};
 
 	const switchImage = (direction) => {
-		console.log('HELLO');
-		console.log(selected, direction);
 		if (currentGame === 'win' || currentGame === 'failed') {
 			if (direction === 'left') {
 				if (selected > 1) {
@@ -146,32 +143,50 @@
 			{/if}
 			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 		</div>
-		<div class="game__search">
-			<Context>
-				<div class="stack">
-					<form on:submit={onSubmit}>
-						<ComboBox
-							label="Anime"
-							name="anime"
-							placeholder="Search for Anime..."
-							on:input={onChange}
-							options={aniList.titles
-								? aniList.titles.map((title) => ({ text: title, value: title }))
-								: null}
-							bind:value
-						/>
-					</form>
-				</div>
-			</Context>
-		</div>
+		{#if currentGame !== 'win'}
+			<div class="game__search">
+				<Context>
+					<div class="stack">
+						<form on:submit={onSubmit} id="comboBox">
+							<ComboBox
+								label="Anime"
+								name="anime"
+								placeholder="Search for Anime..."
+								on:input={onChange}
+								options={aniList.titles
+									? aniList.titles.map((title) => ({ text: title, value: title }))
+									: null}
+								bind:value
+							/>
+						</form>
+					</div>
+				</Context>
+			</div>
+		{:else if currentGame === 'win'}
+			<div>You got it!</div>
+			<div>The answer was {metadata.answer}</div>
+		{:else if currentGame === 'failed'}
+			<div>You failed!</div>
+			<div>The answer was {metadata.answer}</div>
+		{/if}
+
 		<div />
 		<div class="game__attempts">
 			<button on:click={() => switchImage('left')}> {'<'} </button>
-			{attempts}
+			{#each attempts as attempt, i}
+				<button
+					id={i}
+					disabled={currentGame !== 'win' && currentGame !== 'failed' && attempt === 'O'}
+					on:click={changeSelected}
+					class={`attempt__${attempt}`}>{i + 1}</button
+				>
+			{/each}
 			<button on:click={() => switchImage('right')}> {'>'} </button>
 		</div>
 		{#each guesses as guess, i}
-			<div id={i} on:click={changeSelected}>{guess}</div>
+			{#if selected === i + 1}
+				<div id={i} on:click={changeSelected}>{guess}</div>
+			{/if}
 		{/each}
 	</div>
 {:else}
