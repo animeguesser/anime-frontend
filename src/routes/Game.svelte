@@ -39,7 +39,8 @@
 		attempts.push(attempt);
 	}
 
-	const onSubmit = async () => {
+	const onSubmit = async (e) => {
+		e.preventDefault();
 		let guess = value ? value.split('[')[0] : 'skipped';
 		document.getElementById('comboBox').reset();
 
@@ -53,11 +54,13 @@
 
 		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
-			selected += 1;
+			selected = updateIndex + 1;
+			guesses[updateIndex] = guess;
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 		} else if (guess === metadata?.answer && updateIndex >= 0) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
+			guesses[updateIndex] = guess;
 			currentGame = 'win';
 			attempts[updateIndex] = '!';
 		}
@@ -66,7 +69,6 @@
 
 	const onChange = async (e) => {
 		let search = e.target.value;
-		console.log('search', search);
 		if (search.length > 2) {
 			if (timeoutIdForSearch !== null) {
 				clearTimeout(timeoutIdForSearch);
@@ -131,6 +133,7 @@
 		if (metadataRes) {
 			metadata = await metadataRes.json();
 		}
+		selected = guesses.length + 1;
 	});
 </script>
 
