@@ -43,7 +43,6 @@
 				break;
 
 			default:
-				await hideList();
 				await showList(event.target.value);
 		}
 	}
