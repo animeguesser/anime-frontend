@@ -15,6 +15,7 @@
 	$: aniList = [];
 	$: selected = 1;
 	$: metadata = {};
+	$: expand = false;
 	let timeoutIdForSearch = null;
 
 	for (let i = 0; i < 6; i++) {
@@ -75,6 +76,7 @@
 	const onChange = async (e) => {
 		let search = e.target.value;
 		if (search.length > 2) {
+			expand = true;
 			if (timeoutIdForSearch !== null) {
 				clearTimeout(timeoutIdForSearch);
 			}

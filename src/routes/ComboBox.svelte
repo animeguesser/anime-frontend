@@ -41,9 +41,9 @@
 				event.preventDefault();
 				event.stopPropagation();
 				break;
-
-			default:
+			default: {
 				await showList(event.target.value);
+			}
 		}
 	}
 
