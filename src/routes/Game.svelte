@@ -121,6 +121,12 @@
 		}
 	};
 
+	const copy = () => {
+		navigator.clipboard.writeText(
+			`${currentGame} on day ${currentDay}. \n${attempts.map((attempt) => `${attempt} `)}`
+		);
+	};
+
 	onMount(async () => {
 		const metadataRes = await fetch(`https://www.animeguess.moe/days/${currentDay}/metadata.json`, {
 			method: 'GET',
@@ -168,9 +174,11 @@
 		{:else if currentGame === 'win'}
 			<div>You got it!</div>
 			<div>The answer was {metadata.answer}</div>
+			<button on:click={() => copy()}>Copy Result</button>
 		{:else if currentGame === 'failed'}
 			<div>You failed!</div>
 			<div>The answer was {metadata.answer}</div>
+			<button on:click={() => copy()}>Copy Result</button>
 		{/if}
 
 		<div />
