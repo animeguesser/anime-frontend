@@ -55,12 +55,14 @@
 
 		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
+			selected += 1;
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 		} else if (guess === metadata?.answer) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
 			attempts[updateIndex] = '!';
 		}
+		return false;
 	};
 
 	const onChange = async (e) => {
@@ -82,7 +84,7 @@
 				});
 				aniList = await res.json();
 				console.log('aniList', aniList);
-			}, 200);
+			}, 500);
 		}
 	};
 
@@ -109,6 +111,7 @@
 {#if metadata.answer}
 	<div class="game">
 		<div class="img__container">
+			<div class="img__hints">{metadata.hints[`0${selected}`]}</div>
 			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 		</div>
 		<div class="game__search">
