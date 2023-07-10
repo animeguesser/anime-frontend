@@ -17,7 +17,7 @@
 	$: metadata = {};
 	let timeoutIdForSearch = null;
 
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 6; i++) {
 		let attempt = 'O';
 		if (currentGame === 'win') {
 			if (i + 1 === guesses.length) {
@@ -57,6 +57,11 @@
 			selected = updateIndex + 2;
 			guesses[updateIndex] = guess;
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
+			if (updateIndex === 5) {
+				localStorage.setItem(`day${currentDay}state`, 'failed');
+				currentGame = 'failed';
+				selected = 6;
+			}
 		} else if (guess === metadata?.answer && updateIndex >= 0) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
@@ -140,6 +145,7 @@
 			metadata = await metadataRes.json();
 		}
 		selected = guesses.length + 1;
+		console.log(currentGame);
 	});
 </script>
 
@@ -152,13 +158,12 @@
 			{/if}
 			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 		</div>
-		{#if currentGame !== 'win'}
+		{#if currentGame === 'playing'}
 			<div class="game__search">
 				<Context>
 					<div class="stack">
 						<form on:submit={onSubmit} id="comboBox">
 							<ComboBox
-								label="Anime"
 								name="anime"
 								placeholder="Search for Anime..."
 								on:input={onChange}
@@ -187,7 +192,7 @@
 			{#each attempts as attempt, i}
 				<button
 					id={i}
-					disabled={currentGame !== 'win' && currentGame !== 'failed' && attempt === 'O'}
+					disabled={currentGame !== 'win' && currentGame !== 'failed' && attempts[i - 1] === 'O'}
 					on:click={changeSelected}
 					class={`attempt__${attempt}`}>{i + 1}</button
 				>
