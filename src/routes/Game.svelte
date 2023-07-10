@@ -84,13 +84,42 @@
 				});
 				aniList = await res.json();
 				console.log('aniList', aniList);
-			}, 500);
+			}, 650);
 		}
 	};
 
 	const changeSelected = (value) => {
 		selected = Number(value.target.id) + 1;
-		console.log('selected', selected);
+	};
+
+	const switchImage = (direction) => {
+		console.log('HELLO');
+		console.log(selected, direction);
+		if (currentGame === 'win' || currentGame === 'failed') {
+			if (direction === 'left') {
+				if (selected > 1) {
+					selected -= 1;
+				}
+			}
+			if (direction === 'right') {
+				if (selected < 6) {
+					selected += 1;
+				}
+			}
+		} else if (currentGame === 'playing') {
+			if (direction === 'left') {
+				if (selected > 1) {
+					selected -= 1;
+				}
+			}
+			if (direction === 'right') {
+				if (selected < 6) {
+					if (attempts[selected] === 'X') {
+						selected += 1;
+					}
+				}
+			}
+		}
 	};
 
 	onMount(async () => {
@@ -111,7 +140,10 @@
 {#if metadata.answer}
 	<div class="game">
 		<div class="img__container">
-			<div class="img__hints">{metadata.hints[`0${selected}`]}</div>
+			{#if metadata.hints[`0${selected}`]}<div class="img__hints">
+					{metadata.hints[`0${selected}`]}
+				</div>
+			{/if}
 			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 		</div>
 		<div class="game__search">
@@ -134,7 +166,9 @@
 		</div>
 		<div />
 		<div class="game__attempts">
+			<button on:click={() => switchImage('left')}> {'<'} </button>
 			{attempts}
+			<button on:click={() => switchImage('right')}> {'>'} </button>
 		</div>
 		{#each guesses as guess, i}
 			<div id={i} on:click={changeSelected}>{guess}</div>
@@ -190,6 +224,11 @@
 	}
 	.img__container {
 		max-width: 30rem;
+	}
+
+	.img__hints {
+		position: absolute;
+		background-color: rgba(168, 166, 166, 0.5);
 	}
 
 	.hidden {
