@@ -91,7 +91,7 @@
 			},
 			body: JSON.stringify({ query: '' })
 		});
-		const metadataRes = await fetch('https://www.animeguess.moe/days/6/metadata.json', {
+		const metadataRes = await fetch(`https://www.animeguess.moe/days/${currentDay}/metadata.json`, {
 			method: 'GET',
 			credentials: 'omit', // include, *same-origin, omit
 			headers: {
@@ -99,41 +99,50 @@
 				// 'Content-Type': 'application/x-www-form-urlencoded',
 			}
 		});
-		metadata = await metadataRes.json();
+		if (metadataRes) {
+			metadata = await metadataRes.json();
+		}
+
 		aniList = await res.json();
+
+		console.log('metadata', metadata);
 	});
 </script>
 
-<div class="game">
-	<div class="img__container">
-		<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
+{#if metadata.answer}
+	<div class="game">
+		<div class="img__container">
+			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
+		</div>
+		<div class="game__search">
+			<Context>
+				<div class="stack">
+					<form on:submit={onSubmit}>
+						<ComboBox
+							label="Anime"
+							name="anime"
+							placeholder="Search for Anime..."
+							on:input={onChange}
+							options={aniList.titles
+								? aniList.titles.map((title) => ({ text: title, value: title.toLowerCase() }))
+								: null}
+							bind:value
+						/>
+					</form>
+				</div>
+			</Context>
+		</div>
+		<div />
+		<div class="game__attempts">
+			{attempts}
+		</div>
+		{#each guesses as guess, i}
+			<div id={i} on:click={changeSelected}>{guess}</div>
+		{/each}
 	</div>
-	<div class="game__search">
-		<Context>
-			<div class="stack">
-				<form on:submit={onSubmit}>
-					<ComboBox
-						label="Anime"
-						name="anime"
-						placeholder="Search for Anime..."
-						on:input={onChange}
-						options={aniList.titles
-							? aniList.titles.map((title) => ({ text: title, value: title.toLowerCase() }))
-							: null}
-						bind:value
-					/>
-				</form>
-			</div>
-		</Context>
-	</div>
-	<div />
-	<div class="game__attempts">
-		{attempts}
-	</div>
-	{#each guesses as guess, i}
-		<div id={i} on:click={changeSelected}>{guess}</div>
-	{/each}
-</div>
+{:else}
+	<div>NOT A VALID DAY</div>
+{/if}
 
 <style>
 	.game {
