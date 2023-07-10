@@ -57,6 +57,7 @@
 
 	const onChange = async (e) => {
 		let search = e.target.value;
+		console.log('search', search);
 		if (search.length > 2) {
 			if (timeoutIdForSearch !== null) {
 				clearTimeout(timeoutIdForSearch);
@@ -72,7 +73,8 @@
 					body: JSON.stringify({ query: search })
 				});
 				aniList = await res.json();
-			}, 350);
+				console.log('aniList', aniList);
+			}, 100);
 		}
 	};
 
@@ -82,15 +84,6 @@
 	};
 
 	onMount(async () => {
-		const res = await fetch('http://localhost:8000/search', {
-			method: 'POST',
-			credentials: 'omit', // include, *same-origin, omit
-			headers: {
-				'Content-Type': 'application/json'
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: JSON.stringify({ query: '' })
-		});
 		const metadataRes = await fetch(`https://www.animeguess.moe/days/${currentDay}/metadata.json`, {
 			method: 'GET',
 			credentials: 'omit', // include, *same-origin, omit
@@ -102,10 +95,6 @@
 		if (metadataRes) {
 			metadata = await metadataRes.json();
 		}
-
-		aniList = await res.json();
-
-		console.log('metadata', metadata);
 	});
 </script>
 
@@ -124,7 +113,7 @@
 							placeholder="Search for Anime..."
 							on:input={onChange}
 							options={aniList.titles
-								? aniList.titles.map((title) => ({ text: title, value: title.toLowerCase() }))
+								? aniList.titles.map((title) => ({ text: title, value: title }))
 								: null}
 							bind:value
 						/>
