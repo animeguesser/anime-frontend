@@ -152,9 +152,10 @@
 {#if metadata.answer}
 	<div class="game">
 		<div class="img__container">
-			{#if metadata.hints[`0${selected}`]}<div class="img__hints">
+			{#if metadata.hints[`0${selected}`]}
+				<strong class="img__hints">
 					{metadata.hints[`0${selected}`]}
-				</div>
+				</strong>
 			{/if}
 			<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 		</div>
@@ -259,7 +260,7 @@
 
 	.img__hints {
 		position: absolute;
-		background-color: rgba(168, 166, 166, 0.5);
+		background-color: rgba(168, 166, 166, 0.65);
 	}
 
 	.hidden {
