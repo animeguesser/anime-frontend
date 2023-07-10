@@ -54,7 +54,7 @@
 
 		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
-			selected = updateIndex + 1;
+			selected = updateIndex + 2;
 			guesses[updateIndex] = guess;
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 		} else if (guess === metadata?.answer && updateIndex >= 0) {

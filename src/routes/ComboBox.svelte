@@ -138,7 +138,6 @@
 			o.options ? o.options.some((o) => o.text === inputValue) : o.text === inputValue
 		);
 
-		isListOpen = false;
 		list = inputValue === '' || isExactMatch ? options : await filter(inputValue);
 		isListOpen = true;
 	}
