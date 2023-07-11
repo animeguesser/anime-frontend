@@ -36,8 +36,8 @@
 	}
 
 	.clock-viewport {
-		width: 50rem;
-		height: 20rem;
+		width: 30rem;
+		height: 3rem;
 		overflow: hidden;
 		text-align: center;
 		position: relative;
@@ -48,9 +48,9 @@
 		display: flex;
 		width: 100%;
 		height: 100%;
-		font-weight: 400;
+		font-weight: 350;
 		color: var(--color-theme-1);
-		font-size: 4rem;
+		font-size: 1.2rem;
 		align-items: center;
 		justify-content: center;
 	}

@@ -11,6 +11,11 @@
 	$: guesses = undefined;
 	let images = [];
 
+	const moveDay = (direction) => {
+		if (direction === 'left' && currentDay - 1 > 0) window.location.href = `/?day${currentDay - 1}`;
+		else if (direction === 'right') window.location.href = `/?day${currentDay + 1}`;
+	};
+
 	onMount(async () => {
 		const res = await fetch('https://api.animeguess.moe/time');
 		const time = await res.json();
@@ -45,14 +50,20 @@
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="Anime guesser game" content="Anime guesser game" />
 </svelte:head>
 
 <section>
 	{#if guesses && state}
 		<Game {state} {guesses} {images} {currentDay} />
 	{/if}
-	<Clock {timeUntil} />
+</section>
+<section>
+	<div class="clock__section">
+		<button class="arrow_button" on:click={() => moveDay('left')}>{'<'}</button>
+		<Clock {timeUntil} />
+		<button class="arrow_button" on:click={() => moveDay('right')}>{'>'}</button>
+	</div>
 </section>
 
 <style>
@@ -66,6 +77,13 @@
 
 	h1 {
 		width: 100%;
+	}
+
+	.clock__section {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.welcome {
