@@ -62,7 +62,7 @@
 				currentGame = 'failed';
 				selected = 6;
 			}
-		} else if (guess === metadata?.answer && updateIndex >= 0) {
+		} else if (guess.trim() === metadata?.answer.trim() && updateIndex >= 0) {
 			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
 			localStorage.setItem(`day${currentDay}state`, 'win');
 			guesses[updateIndex] = guess;
