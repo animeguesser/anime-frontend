@@ -17,6 +17,7 @@
 	<div class="clock-viewport">
 		<div class="clock-digits" style="transform: translate(0, {100}%)">
 			<strong class="hidden" aria-hidden="true">
+				The Next Day will be available in:
 				<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
 				<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
 				<span class="secs"

@@ -1,6 +1,8 @@
 <script>
 	import { uid, onClickOutside } from './Context.svelte';
 
+	import { writable } from 'svelte/store';
+
 	export let disabled = undefined;
 	export let error = undefined;
 	export let expand = true;
@@ -13,6 +15,8 @@
 	export let readonly = undefined;
 	export let required = undefined;
 	export let value = '';
+
+	$: showList('', options);
 
 	export let filter = (text) => {
 		return options;
@@ -133,7 +137,7 @@
 		}
 	}
 
-	async function showList(inputValue) {
+	async function showList(inputValue, option) {
 		const isExactMatch = options.some((o) =>
 			o.options ? o.options.some((o) => o.text === inputValue) : o.text === inputValue
 		);
