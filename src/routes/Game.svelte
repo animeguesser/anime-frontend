@@ -43,7 +43,6 @@
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		let guess = value ? value.split('[')[0] : 'skipped';
-		document.getElementById('comboBox').reset();
 
 		let updateIndex = attempts.findIndex((attempt) => {
 			return attempt === 'O';
@@ -70,6 +69,8 @@
 			currentGame = 'win';
 			attempts[updateIndex] = '!';
 		}
+		value = '';
+		document.getElementById('comboBox').reset();
 		return false;
 	};
 
@@ -98,6 +99,7 @@
 
 	const changeSelected = (value) => {
 		selected = Number(value.target.id) + 1;
+		document.getElementById('comboBox').reset();
 	};
 
 	const switchImage = (direction) => {
@@ -147,7 +149,6 @@
 			metadata = await metadataRes.json();
 		}
 		selected = guesses.length + 1;
-		console.log(currentGame);
 	});
 </script>
 
@@ -165,16 +166,26 @@
 			<div class="game__search">
 				<Context>
 					<div class="stack">
-						<form on:submit={onSubmit} id="comboBox">
-							<ComboBox
-								name="anime"
-								placeholder="Search for Anime..."
-								on:input={onChange}
-								options={aniList.titles
-									? aniList.titles.map((title) => ({ text: title, value: title }))
-									: null}
-								bind:value
-							/>
+						<form
+							on:keydown={(event) => event.key !== 'Enter'}
+							on:submit={onSubmit}
+							id="comboBox"
+							class="form"
+						>
+							<button type="submit" disabled style="display: none" aria-hidden="true" />
+							<div class="game__search">
+								<ComboBox
+									name="anime"
+									placeholder="Search for Anime..."
+									on:input={onChange}
+									options={aniList.titles
+										? aniList.titles.map((title) => ({ text: title, value: title }))
+										: null}
+									bind:value
+								/>
+								<button class="skip__button" on:submit={onSubmit}>skip</button>
+							</div>
+							<button type="submit">Submit</button>
 						</form>
 					</div>
 				</Context>
@@ -222,6 +233,9 @@
 	}
 
 	.game__search {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.game-viewport {
@@ -248,6 +262,17 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
+	}
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.skip__button {
+		height: 2.5rem;
 	}
 
 	.img {

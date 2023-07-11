@@ -113,7 +113,6 @@
 				break;
 
 			case 'Enter':
-				selectOption(event.target);
 				hideList();
 				flag = true;
 				break;
@@ -279,7 +278,6 @@
 
 		display: flex;
 		flex-direction: column;
-		gap: 0.5em;
 	}
 
 	.input-container {
