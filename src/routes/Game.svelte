@@ -195,7 +195,7 @@
 					id={`${i}`}
 					disabled={currentGame !== 'win' && currentGame !== 'failed' && attempts[i - 1] === 'O'}
 					on:click={changeSelected}
-					class={`attempt__${attempt}`}>{i + 1}</button
+					class={`attempt__${attempt} ${i + 1 === selected ? 'highlight' : ''}`}>{i + 1}</button
 				>
 			{/each}
 		</div>
@@ -208,11 +208,20 @@
 				</strong>
 			{/if}
 			<div class="gallery">
-				<button on:click={() => switchImage('left')} class="gallery__button">
+				<button
+					disabled={selected === 1}
+					on:click={() => switchImage('left')}
+					class="gallery__button"
+				>
 					<Fa icon={faChevronLeft} />
 				</button>
+
 				<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
-				<button on:click={() => switchImage('right')} class="gallery__button">
+				<button
+					disabled={selected === 6}
+					on:click={() => switchImage('right')}
+					class="gallery__button"
+				>
 					<Fa icon={faChevronRight} />
 				</button>
 			</div>
@@ -376,6 +385,9 @@
 		border-radius: 5px;
 	}
 
+	.highlight {
+		text-decoration: underline;
+	}
 	.guess__X {
 		color: var(--color-wrong);
 		font-size: 2rem;
