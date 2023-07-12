@@ -269,8 +269,6 @@
 			{/each}
 		</div>
 	</div>
-{:else}
-	<div>NOT A VALID DAY</div>
 {/if}
 
 <style>
@@ -290,7 +288,7 @@
 		justify-content: center;
 		align-items: center;
 		cursor: text;
-		height: 5rem;
+		height: 7rem;
 		width: 18rem;
 	}
 	.game__comboBox {
@@ -329,7 +327,7 @@
 		background-color: var(--color-theme-2);
 	}
 	.submit__button {
-		height: 2.5rem;
+		height: 3rem;
 		border-radius: 5px;
 		border: none;
 		margin-top: 5px;
