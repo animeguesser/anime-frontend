@@ -62,7 +62,6 @@
 
 		// split off and maintain the  non synonym response
 		let guess = value ? value.split('[')[0] : 'skipped';
-		console.log(guess.trim() === metadata?.answer.trim(), metadata?.answer);
 
 		// identify the next valid index that can change state
 		let updateIndex = attempts.findIndex((attempt) => {
@@ -76,7 +75,7 @@
 
 		// if the browser is ready for local storage updates and we have an available answer. Validates the value and updates game and local storage
 
-		if (browser && guess !== metadata?.answer && updateIndex >= 0) {
+		if (browser && guess.trim() !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			selected = updateIndex + 2;
 			guesses[updateIndex] = guess;
