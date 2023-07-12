@@ -19,6 +19,9 @@
 	let selectedDay = 0;
 	let currentDay = 0;
 	$: state = '';
+	let leftDisabled = false
+	let rightDisabled = false
+	
 	/**
 	 * @type {string[]}
 	 */
@@ -47,6 +50,12 @@
 		} else {
 			selectedDay = await time.currentDay;
 			currentDay = await time.currentDay;
+		}
+
+		if (selectedDay === currentDay) {
+			rightDisabled = true;
+		} else if (selectedDay -1 <= 0) {
+			leftDisabled = true;
 		}
 
 		// once browser is defined create any needed local storage and begin intialization for game
@@ -84,11 +93,11 @@
 </section>
 <section>
 	<div class="clock__section">
-		<button class="arrow_button" on:click={() => moveDay('left')}>
+		<button class="arrow_button" disabled={leftDisabled} on:click={() => moveDay('left')}>
 			<Fa icon={faCaretLeft} />
 		</button>
 		<Clock {timeUntil} />
-		<button class="arrow_button" on:click={() => moveDay('right')}>
+		<button class="arrow_button" disabled={rightDisabled} on:click={() => moveDay('right')}>
 			<Fa icon={faCaretRight} />
 		</button>
 	</div>
