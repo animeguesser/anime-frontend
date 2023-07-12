@@ -17,12 +17,14 @@
 	<div class="clock-viewport">
 		<div class="clock-digits" style="transform: translate(0, {100}%)">
 			<strong class="hidden" aria-hidden="true">
-				The Next Day will be available in:
-				<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
-				<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
-				<span class="secs"
-					>{secondsRemain < 10 && secondsRemain >= 0 ? `0${secondsRemain}` : secondsRemain}s</span
-				>
+				<div>The Next Day will be available in:</div>
+				<div>
+					<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
+					<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
+					<span class="secs"
+						>{secondsRemain < 10 && secondsRemain >= 0 ? `0${secondsRemain}` : secondsRemain}s</span
+					>
+				</div>
 			</strong>
 		</div>
 	</div>
@@ -50,7 +52,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: 350;
-		color: var(--color-theme-1);
+		color: var(--color-theme-2);
 		font-size: 1.2rem;
 		align-items: center;
 		justify-content: center;
@@ -64,6 +66,10 @@
 
 	.hidden {
 		top: -100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 		user-select: none;
 	}
 </style>

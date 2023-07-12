@@ -13,7 +13,7 @@
 			let attempt = 'O';
 			if (game === 'win') {
 				if (i + 1 === guesses.length) {
-					attempt = '!';
+					attempt = 'W';
 					selected = i + 1;
 				} else if (i + 1 > guesses.length) {
 					attempt = 'O';
@@ -118,7 +118,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: 400;
-		color: var(--color-theme-1);
+		color: var(--color-theme-2);
 		font-size: 4rem;
 		align-items: center;
 		justify-content: center;
