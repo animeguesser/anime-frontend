@@ -155,7 +155,7 @@
 			}
 			if (direction === 'right') {
 				if (selected < 6) {
-					if (attempts[selected] === 'X') {
+					if (attempts[selected - 1] === 'X') {
 						selected += 1;
 					}
 				}
