@@ -102,6 +102,12 @@
 		color: var(--color-theme-2);
 	}
 
+	@media (max-width: 720px) {
+		.logo {
+			width: 70vw;
+		}
+	}
+
 	.logo {
 		width: 20vw;
 	}

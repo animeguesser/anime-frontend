@@ -249,7 +249,7 @@
 								<button class="skip__button" on:submit={onSubmit}>skip</button>
 							{/if}
 						</div>
-						<button class="submit__button" type="submit">Submit</button>
+						<button disabled={value === ''} class="submit__button" type="submit">Submit</button>
 					</form>
 				</div>
 			</Context>
@@ -285,7 +285,7 @@
 		align-items: center;
 		flex-direction: column;
 		margin: 1rem 0;
-		width: 50vw;
+		width: 60vw;
 		height: fit-content;
 	}
 
@@ -459,7 +459,7 @@
 		background-color: rgba(168, 166, 166, 0.65);
 	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 720px) {
 		.game {
 			display: flex;
 			justify-content: center;
