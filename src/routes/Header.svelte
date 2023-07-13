@@ -102,13 +102,14 @@
 		color: var(--color-theme-2);
 	}
 
-	@media (max-width: 720px) {
-		.logo {
-			width: 70vw;
-		}
-	}
-
 	.logo {
 		width: 20vw;
+		max-width: 10rem;
+	}
+
+	@media (max-width: 500px) {
+		.logo {
+			width: 35vw;
+		}
 	}
 </style>

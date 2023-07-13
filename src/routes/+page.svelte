@@ -95,9 +95,11 @@
 	<div class="clock__section">
 		<button class="arrow_button" disabled={leftDisabled} on:click={() => moveDay('left')}>
 			<Fa icon={faCaretLeft} />
+			<div>Previous Day</div>
 		</button>
 		<Clock {timeUntil} />
 		<button class="arrow_button" disabled={rightDisabled} on:click={() => moveDay('right')}>
+			<div>Next Day</div>
 			<Fa icon={faCaretRight} />
 		</button>
 	</div>
@@ -123,8 +125,12 @@
 	}
 
 	.arrow_button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 50px;
 		border: none;
+		border-radius: 5px;
 		color: var(--color-theme-1);
 		background-color: var(--color-theme-2);
 	}

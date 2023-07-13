@@ -459,7 +459,7 @@
 		background-color: rgba(168, 166, 166, 0.65);
 	}
 
-	@media (max-width: 720px) {
+	@media (max-width: 500px) {
 		.game {
 			display: flex;
 			justify-content: center;
