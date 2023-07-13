@@ -74,7 +74,6 @@
 		}
 
 		// if the browser is ready for local storage updates and we have an available answer. Validates the value and updates game and local storage
-
 		if (browser && guess.trim() !== metadata?.answer && updateIndex >= 0) {
 			attempts[updateIndex] = 'X';
 			selected = updateIndex + 2;

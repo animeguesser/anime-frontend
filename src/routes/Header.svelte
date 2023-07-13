@@ -1,28 +1,14 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
+	import logo from '../lib/images/AGCookieLogo.svg';
 </script>
 
 <header>
 	<div class="corner" />
 
-	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/playerHistory' ? 'page' : undefined}>
-				<a href="/playerHistory">History</a>
-			</li>
-		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav>
+	<a href="https://www.animeguess.moe/">
+		<img src={logo} class="logo" />
+	</a>
 
 	<div class="corner" />
 </header>
@@ -31,6 +17,7 @@
 	header {
 		display: flex;
 		justify-content: space-between;
+		padding-top: 20px;
 	}
 
 	.corner {
@@ -113,5 +100,9 @@
 
 	a:hover {
 		color: var(--color-theme-2);
+	}
+
+	.logo {
+		width: 20vw;
 	}
 </style>

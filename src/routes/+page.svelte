@@ -19,9 +19,9 @@
 	let selectedDay = 0;
 	let currentDay = 0;
 	$: state = '';
-	let leftDisabled = false
-	let rightDisabled = false
-	
+	let leftDisabled = false;
+	let rightDisabled = false;
+
 	/**
 	 * @type {string[]}
 	 */
@@ -54,7 +54,7 @@
 
 		if (selectedDay === currentDay) {
 			rightDisabled = true;
-		} else if (selectedDay -1 <= 0) {
+		} else if (selectedDay - 1 <= 0) {
 			leftDisabled = true;
 		}
 
