@@ -460,8 +460,19 @@
 		background-color: rgba(168, 166, 166, 0.65);
 	}
 
-	.hidden {
-		top: -100%;
-		user-select: none;
+	@media (max-width: 500px) {
+		.game {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			margin: 1rem 0;
+			width: 90vw;
+			height: fit-content;
+		}
+
+		.gallery__button {
+			display: none;
+		}
 	}
 </style>
