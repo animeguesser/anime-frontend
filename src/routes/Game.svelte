@@ -450,7 +450,7 @@
 		width: 100%;
 	}
 	.img__container {
-		max-width: 30rem;
+		max-width: 50rem;
 		margin-bottom: 30px;
 	}
 
