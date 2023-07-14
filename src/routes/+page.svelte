@@ -69,7 +69,7 @@
 				localStorage.setItem(`day${selectedDay}state`, state);
 			}
 			let tempArr = [];
-			for (let i = 0; i < 5; i++) {
+			for (let i = 0; i < 6; i++) {
 				let guess = localStorage.getItem(`day${selectedDay}guess${i}`);
 
 				if (guess) {

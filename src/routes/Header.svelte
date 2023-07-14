@@ -5,7 +5,7 @@
 
 <header>
 	<div class="corner">
-		<a href="https://github.com/animeguesser/anime-frontend">
+		<a href="https://github.com/animeguesser">
 			<img src={github} alt="GitHub" />
 		</a>
 	</div>

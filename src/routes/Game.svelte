@@ -165,7 +165,16 @@
 	// function to copy the game results into your clipboard
 	const copy = () => {
 		navigator.clipboard.writeText(
-			`${currentGame} on day ${currentDay}. \n${attempts.map((attempt) => `${attempt} `)}`
+			`#AnimeGuess Day #${currentDay} \n\n${String.fromCodePoint(0x1f364)} ${attempts.map(
+				(attempt) =>
+					` ${
+						attempt === 'W'
+							? String.fromCodePoint(0x1f7e9)
+							: attempt === 'X'
+							? String.fromCodePoint(0x1f7e5)
+							: String.fromCodePoint(0x2b1c0)
+					}`
+			)}\n\n#AnimeNerd\nhttps://www.animeguess.moe/?day${currentDay}`
 		);
 	};
 
@@ -182,7 +191,11 @@
 		if (metadataRes) {
 			metadata = await metadataRes.json();
 		}
-		selected = guesses.length + 1;
+		if (guesses.length < 5) {
+			selected = guesses.length + 1;
+		} else if (guesses.length > 0) {
+			selected = guesses.length;
+		}
 	});
 </script>
 
@@ -238,7 +251,7 @@
 						<div class="game__comboBox">
 							<ComboBox
 								name="anime"
-								placeholder="Search for Anime..."
+								placeholder="Guess an Anime..."
 								on:input={onChange}
 								options={aniList.titles
 									? aniList.titles.map((title) => ({ text: title, value: title }))
