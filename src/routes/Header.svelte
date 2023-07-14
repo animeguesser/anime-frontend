@@ -1,5 +1,5 @@
 <script>
-	import logo from '../lib/images/AG_BW_Logo.svg';
+	import logo from '$lib/images/AG_BW_Logo.svg';
 	import github from '$lib/images/github.svg';
 </script>
 
