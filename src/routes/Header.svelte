@@ -1,10 +1,14 @@
 <script>
-	import { page } from '$app/stores';
-	import logo from '../lib/images/AGCookieLogo.svg';
+	import logo from '../lib/images/AG_BW_Logo.svg';
+	import github from '$lib/images/github.svg';
 </script>
 
 <header>
-	<div class="corner" />
+	<div class="corner">
+		<a href="https://github.com/animeguesser/anime-frontend">
+			<img src={github} alt="GitHub" />
+		</a>
+	</div>
 
 	<a href="https://www.animeguess.moe/">
 		<img src={logo} class="logo" />
@@ -23,6 +27,7 @@
 	.corner {
 		width: 3em;
 		height: 3em;
+		color: white;
 	}
 
 	.corner a {
