@@ -172,7 +172,7 @@
 							? String.fromCodePoint(0x1f7e9)
 							: attempt === 'X'
 							? String.fromCodePoint(0x1f7e5)
-							: String.fromCodePoint(0x2b1c0)
+							: String.fromCodePoint(0x02b1c)
 					}`
 			)}\n\n#AnimeNerd\nhttps://www.animeguess.moe/?day${currentDay}`
 		);
