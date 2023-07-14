@@ -1,7 +1,72 @@
 <script>
 	import logo from '$lib/images/AG_BW_Logo.svg';
 	import github from '$lib/images/github.svg';
+	import Modal from './Modal.svelte';
+
+	import Fa from 'svelte-fa/src/fa.svelte';
+	import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
+	// import lifecyle and browser to safely use local state
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+
+	let showModal = false;
+
+	onMount(async () => {
+		if (browser) {
+			let firstVisit = localStorage.getItem(`firstVisit`);
+			if (firstVisit !== 'no') {
+				showModal = true;
+				localStorage.setItem('firstVisit', 'no');
+			}
+		}
+	});
 </script>
+
+<Modal bind:showModal>
+	<h2 slot="header" class="instruction__header">
+		Hello!
+		<small>よー!</small>
+	</h2>
+
+	<ol class="instruction">
+		<li class="list-item">
+			Anime Guess is a daily puzzle game inspired by <a
+				href="https://www.nytimes.com/games/wordle/index.html">Wordle</a
+			>, <a href="https://framed.wtf/">Framed</a> and
+			<a href="https://guessthe.game/">GuessTheGame</a>
+		</li>
+		<li class="list-item">
+			Every 24hrs a new set of images will be shared from an anime. These images will hopefully help
+			you identify the aesthtic, character, context, and eventually the title of the anime. Each
+			picture will start from a very granular level and will gradually become more explicit. Type
+			within the searchbox for an anime and select from within the list the anime you think it is.
+			No guess? No problem just hit the skip button to try and get a better idea!
+		</li>
+		<li class="list-item">
+			All Titles of anime will be in the Romaji and will match the answers as such. However, you can
+			still type in the english title or other synonym while seaching. This will give you the Romaji
+			title followed by the closest matching synonym.
+		</li>
+		<li class="list-item">Eg. Kimi no Na wa [Your Name]</li>
+		<li class="list-item">
+			We strive to create a game that is fun to play, challenging, and fufilling for individuals and
+			communities. As such we will make selections for anime that are relevant to a large and
+			diverse group of anime watchers (young, old, otaku, or casual). There will be a number of
+			challenging selections as well easier answers and we hope that either way we can satisfy many
+			players with exciting puzzles.
+		</li>
+	</ol>
+	<ol class="instruction">
+		<li class="list-item__small">Additional Info:</li>
+		<li class="list-item__small">
+			This Project is Open Source and can be viewed by clicking the github logo in the top left
+			corner of the screen. If the game grows in popularity we will implement a feature to take in
+			community submissions until then all the puzzles will be designed by us. This game is also
+			currently in Alpha and is subject to change drastically at anytime, thanks for playing!
+		</li>
+	</ol>
+</Modal>
 
 <header>
 	<div class="corner">
@@ -14,7 +79,9 @@
 		<img src={logo} class="logo" />
 	</a>
 
-	<div class="corner" />
+	<div class="corner info" on:click={() => (showModal = true)}>
+		<Fa icon={faCircleInfo} />
+	</div>
 </header>
 
 <style>
@@ -107,6 +174,11 @@
 		color: var(--color-theme-2);
 	}
 
+	.info {
+		font-size: 1.5rem;
+		cursor: pointer;
+	}
+
 	.logo {
 		width: 20vw;
 		max-width: 10rem;
@@ -116,5 +188,26 @@
 		.logo {
 			width: 35vw;
 		}
+	}
+	.instruction {
+		background-color: var(--color-theme-2);
+		color: white;
+		max-height: 70vh;
+		padding-left: 20px;
+	}
+	.instruction__header {
+		font-size: 1.2rem;
+		font-weight: 700;
+	}
+	.list-item {
+		list-style-type: none;
+		padding-top: 0.5rem;
+	}
+	.list-item__small {
+		list-style-type: none;
+		font-size: 0.5rem;
+	}
+	a {
+		color: var(--color-theme-1);
 	}
 </style>

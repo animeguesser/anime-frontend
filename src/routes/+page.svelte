@@ -63,6 +63,11 @@
 			guesses = [];
 			state = 'playing';
 			let localState = localStorage.getItem(`day${selectedDay}state`);
+			let firstVisit = localStorage.getItem(`firstVisit`);
+			if (firstVisit !== 'no') {
+				showModal = true;
+				// localStorage.setItem('firstVisit', 'no');
+			}
 			if (localState) {
 				state = localState;
 			} else {
