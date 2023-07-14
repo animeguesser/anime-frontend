@@ -269,7 +269,7 @@
 		{:else if currentGame === 'win'}
 			<div class="game__result">You got it!</div>
 			<div class="game__title">The answer was {metadata.answer}</div>
-			<button on:click={() => copy()}>Copy Result</button>
+			<button class="copy__button" on:click={() => copy()}>Copy Result</button>
 		{:else if currentGame === 'failed'}
 			<div class="game__result">You failed!</div>
 			<div class="game__title">The answer was {metadata.answer}</div>
