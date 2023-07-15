@@ -230,7 +230,7 @@
 
 				<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 				<button
-					disabled={selected === 6 || attempts[selected] === 'O'}
+					disabled={selected === 6 || (attempts[selected] === 'O' && currentGame === 'playing')}
 					on:click={() => switchImage('right')}
 					class="gallery__button"
 				>
