@@ -37,7 +37,7 @@
 			is. No guess? No problem just hit the skip button to try and get a better idea!
 		</li>
 		<li class="list-item">
-			If you answer incorrectly or skip a new picture will be revealed. Good luck!
+			If you answer incorrectly, or skip, a new picture will be revealed. Good luck!
 		</li>
 	</ol>
 </Modal>
