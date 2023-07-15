@@ -4,26 +4,45 @@
 	import Modal from './Modal.svelte';
 
 	import Fa from 'svelte-fa/src/fa.svelte';
-	import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+	import { faCircleInfo, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 
 	// import lifecyle and browser to safely use local state
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
-	let showModal = false;
+	let showInstruction = false;
+	let showAbout = false;
 
 	onMount(async () => {
 		if (browser) {
 			let firstVisit = localStorage.getItem(`firstVisit`);
 			if (firstVisit !== 'no') {
-				showModal = true;
+				showInstruction = true;
 				localStorage.setItem('firstVisit', 'no');
 			}
 		}
 	});
 </script>
 
-<Modal bind:showModal>
+<Modal bind:showModal={showInstruction}>
+	<h2 slot="header" class="instruction__header">How to Play</h2>
+
+	<ol class="instruction">
+		<li class="list-item">
+			Guess the anime based off of the six images provided.Each picture will start from a very
+			granular level and will gradually become more explicit.
+		</li>
+		<li class="list-item">
+			Type within the searchbox for an anime and select from within the list the anime you think it
+			is. No guess? No problem just hit the skip button to try and get a better idea!
+		</li>
+		<li class="list-item">
+			If you answer incorrectly or skip a new picture will be revealed. Good luck!
+		</li>
+	</ol>
+</Modal>
+
+<Modal bind:showModal={showAbout}>
 	<h2 slot="header" class="instruction__header">
 		Hello!
 		<small>よー!</small>
@@ -38,10 +57,7 @@
 		</li>
 		<li class="list-item">
 			Every 24hrs a new set of images will be shared from an anime. These images will hopefully help
-			you identify the aesthtic, character, context, and eventually the title of the anime. Each
-			picture will start from a very granular level and will gradually become more explicit. Type
-			within the searchbox for an anime and select from within the list the anime you think it is.
-			No guess? No problem just hit the skip button to try and get a better idea!
+			you identify the aesthtic, character, context, and eventually the title of the anime.
 		</li>
 		<li class="list-item">
 			All Titles of anime will be in the Romaji and will match the answers as such. However, you can
@@ -79,8 +95,9 @@
 		<img src={logo} class="logo" />
 	</a>
 
-	<div class="corner info" on:click={() => (showModal = true)}>
-		<Fa icon={faCircleInfo} />
+	<div class="corner info">
+		<div on:click={() => (showInstruction = true)}><Fa icon={faCircleInfo} /></div>
+		<div on:click={() => (showAbout = true)}><Fa icon={faCircleQuestion} /></div>
 	</div>
 </header>
 
@@ -175,6 +192,9 @@
 	}
 
 	.info {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 		font-size: 1.5rem;
 		cursor: pointer;
 	}

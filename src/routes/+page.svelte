@@ -136,7 +136,10 @@
 		height: 50px;
 		border: none;
 		border-radius: 5px;
-		color: var(--color-theme-1);
+		color: white;
 		background-color: var(--color-theme-2);
+	}
+	.arrow_button:disabled {
+		color: rgba(16, 16, 16, 0.3);
 	}
 </style>

@@ -82,6 +82,7 @@ button {
 button:disabled,
 button[disabled] {
 	cursor: not-allowed;
+	color: rgba(16, 16, 16, 0.3);
 }
 
 button:focus:not(:focus-visible) {

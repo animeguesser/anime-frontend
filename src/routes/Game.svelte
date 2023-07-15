@@ -230,7 +230,7 @@
 
 				<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 				<button
-					disabled={selected === 6}
+					disabled={selected === 6 || attempts[selected] === 'O'}
 					on:click={() => switchImage('right')}
 					class="gallery__button"
 				>
@@ -345,6 +345,7 @@
 		border: none;
 		width: 4rem;
 		background-color: var(--color-theme-2);
+		color: white;
 	}
 	.submit__button {
 		height: 3rem;
@@ -353,6 +354,11 @@
 		margin-top: 5px;
 		width: 100%;
 		background-color: var(--color-correct);
+		color: white;
+	}
+
+	.submit__button:disabled {
+		color: rgba(16, 16, 16, 0.3);
 	}
 
 	.copy__button {
@@ -362,6 +368,7 @@
 		margin-top: 5px;
 		width: 20rem;
 		background-color: var(--color-correct);
+		color: white;
 	}
 
 	.attempt__X {
@@ -395,6 +402,10 @@
 		margin: 2px;
 		border: none;
 		border-radius: 5px;
+	}
+
+	.attempt__O:disabled {
+		color: rgba(16, 16, 16, 0.3);
 	}
 
 	.highlight {
@@ -449,6 +460,10 @@
 		height: 125px;
 		font-size: 2rem;
 		margin: 0px 10px 0px 10px;
+		color: white;
+	}
+	.gallery__button:disabled {
+		color: rgba(16, 16, 16, 0.3);
 	}
 
 	.gallery__day {
