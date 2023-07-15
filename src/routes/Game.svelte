@@ -212,7 +212,14 @@
 			{/each}
 		</div>
 		<div class="img__container">
-			<div class="gallery__day">Day {currentDay}</div>
+			<div class="gallery__subheader">
+				<div class="gallery__difficulty">
+					Difficulty: <span class={`difficulty-${metadata?.difficulty}`}
+						>{metadata?.difficulty}</span
+					>
+				</div>
+				<div class="gallery__day">Day {currentDay}</div>
+			</div>
 
 			{#if metadata.hints[`0${selected}`]}
 				<strong class="img__hints">
@@ -466,6 +473,12 @@
 		color: rgba(16, 16, 16, 0.3);
 	}
 
+	.gallery__subheader {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
 	.gallery__day {
 		text-align: right;
 		color: white;
@@ -473,6 +486,24 @@
 		margin-bottom: 2px;
 	}
 
+	.gallery__difficulty {
+		text-align: left;
+		color: white;
+		font-size: 0.8rem;
+		margin-bottom: 2px;
+	}
+
+	.difficulty-easy {
+		color: var(--color-correct);
+	}
+
+	.difficulty-medium {
+		color: var(--color-warning);
+	}
+
+	.difficulty-hard {
+		color: var(--color-wrong);
+	}
 	.img {
 		height: 100%;
 		width: 100%;
