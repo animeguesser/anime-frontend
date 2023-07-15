@@ -28,16 +28,13 @@
 	<h2 slot="header" class="instruction__header">How to Play</h2>
 
 	<ol class="instruction">
+		<li class="list-item">Guess the anime based off of the six images provided.</li>
+		<li class="list-item">Each new picture will progressively be easier.</li>
 		<li class="list-item">
-			Guess the anime based off of the six images provided.Each picture will start from a very
-			granular level and will gradually become more explicit.
+			Type within the searchbox for an anime and select from within the list.
 		</li>
 		<li class="list-item">
-			Type within the searchbox for an anime and select from within the list the anime you think it
-			is. No guess? No problem just hit the skip button to try and get a better idea!
-		</li>
-		<li class="list-item">
-			If you answer incorrectly, or skip, a new picture will be revealed. Good luck!
+			No guess? No problem just hit the skip button to try and get a better idea!
 		</li>
 	</ol>
 </Modal>

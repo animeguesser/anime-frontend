@@ -215,7 +215,7 @@
 			<div class="gallery__subheader">
 				<div class="gallery__difficulty">
 					Difficulty: <span class={`difficulty-${metadata?.difficulty}`}
-						>{metadata?.difficulty}</span
+						>{metadata?.difficulty[0].toUpperCase() + metadata?.difficulty.substring(1)}</span
 					>
 				</div>
 				<div class="gallery__day">Day {currentDay}</div>
