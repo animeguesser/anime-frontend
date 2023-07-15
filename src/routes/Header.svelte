@@ -96,8 +96,8 @@
 	</a>
 
 	<div class="corner info">
-		<div on:click={() => (showInstruction = true)}><Fa icon={faCircleInfo} /></div>
-		<div on:click={() => (showAbout = true)}><Fa icon={faCircleQuestion} /></div>
+		<div on:click={() => (showInstruction = true)}><Fa icon={faCircleQuestion} /></div>
+		<div on:click={() => (showAbout = true)}><Fa icon={faCircleInfo} /></div>
 	</div>
 </header>
 
