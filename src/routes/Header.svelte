@@ -28,8 +28,8 @@
 	<h2 slot="header" class="instruction__header">How to Play</h2>
 
 	<ol class="instruction">
-		<li class="list-item">Guess the anime based off of the six images provided.</li>
-		<li class="list-item">Each new picture will progressively be easier.</li>
+		<li class="list-item">Guess the anime based on six image clues.</li>
+		<li class="list-item">Each new image is a bigger hint to the right answer.</li>
 		<li class="list-item">
 			Type within the searchbox for an anime and select from within the list.
 		</li>
