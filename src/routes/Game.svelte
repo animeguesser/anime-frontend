@@ -213,11 +213,13 @@
 		</div>
 		<div class="img__container">
 			<div class="gallery__subheader">
-				<div class="gallery__difficulty">
-					Difficulty: <span class={`difficulty-${metadata?.difficulty}`}
-						>{metadata?.difficulty[0].toUpperCase() + metadata?.difficulty.substring(1)}</span
-					>
-				</div>
+				{#if metadata?.difficulty}
+					<div class="gallery__difficulty">
+						Difficulty: <span class={`difficulty-${metadata?.difficulty}`}
+							>{metadata?.difficulty[0].toUpperCase() + metadata?.difficulty.substring(1)}</span
+						>
+					</div>
+				{/if}
 				<div class="gallery__day">Day {currentDay}</div>
 			</div>
 
