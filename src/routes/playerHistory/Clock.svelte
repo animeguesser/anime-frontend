@@ -17,11 +17,14 @@
 	<div class="clock-viewport">
 		<div class="clock-digits" style="transform: translate(0, {100}%)">
 			<strong class="hidden" aria-hidden="true">
-				<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
-				<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
-				<span class="secs"
-					>{secondsRemain < 10 && secondsRemain >= 0 ? `0${secondsRemain}` : secondsRemain}s</span
-				>
+				<div>The Next Day will be available in:</div>
+				<div>
+					<span class="minutes">{hoursRemain < 10 ? `0${hoursRemain}` : hoursRemain}</span>h
+					<span class="minutes">{minutesRemain < 10 ? `0${minutesRemain}` : minutesRemain}</span>m
+					<span class="secs"
+						>{secondsRemain < 10 && secondsRemain >= 0 ? `0${secondsRemain}` : secondsRemain}s</span
+					>
+				</div>
 			</strong>
 		</div>
 	</div>
@@ -30,14 +33,13 @@
 <style>
 	.clock {
 		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		margin: 1rem 0;
 	}
 
 	.clock-viewport {
-		width: 50rem;
-		height: 20rem;
+		width: 50vw;
+		max-width: 30rem;
+		height: 6rem;
 		overflow: hidden;
 		text-align: center;
 		position: relative;
@@ -48,9 +50,9 @@
 		display: flex;
 		width: 100%;
 		height: 100%;
-		font-weight: 400;
-		color: var(--color-theme-2);
-		font-size: 4rem;
+		font-weight: 350;
+		color: white;
+		font-size: 1.2rem;
 		align-items: center;
 		justify-content: center;
 	}
@@ -63,6 +65,10 @@
 
 	.hidden {
 		top: -100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 		user-select: none;
 	}
 </style>
