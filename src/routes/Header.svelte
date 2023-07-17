@@ -4,7 +4,11 @@
 	import Modal from './Modal.svelte';
 
 	import Fa from 'svelte-fa/src/fa.svelte';
-	import { faCircleInfo, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+	import {
+		faCircleInfo,
+		faCircleQuestion,
+		faCalendarDays
+	} from '@fortawesome/free-solid-svg-icons';
 
 	// import lifecyle and browser to safely use local state
 	import { browser } from '$app/environment';
@@ -12,6 +16,10 @@
 
 	let showInstruction = false;
 	let showAbout = false;
+
+	const goToHistory = () => {
+		window.location.href = `/playerHistory`;
+	};
 
 	onMount(async () => {
 		if (browser) {
@@ -93,6 +101,7 @@
 	</a>
 
 	<div class="corner info">
+		<div on:click={goToHistory}><Fa icon={faCalendarDays} /></div>
 		<div on:click={() => (showInstruction = true)}><Fa icon={faCircleQuestion} /></div>
 		<div on:click={() => (showAbout = true)}><Fa icon={faCircleInfo} /></div>
 	</div>
@@ -106,7 +115,7 @@
 	}
 
 	.corner {
-		width: 3em;
+		width: 3.5em;
 		height: 3em;
 		color: white;
 	}
