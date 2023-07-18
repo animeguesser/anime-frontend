@@ -14,8 +14,7 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: null,
-			trailingSlash: 'always'
+			fallback: null
 		}),
 	},
 	
