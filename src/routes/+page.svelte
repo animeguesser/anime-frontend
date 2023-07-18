@@ -14,9 +14,6 @@
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
-	// Trailing slash
-	export const trailingSlash = 'always';
-
 	// instantiate  variables
 	let timeUntil = 0;
 	let selectedDay = 0;
