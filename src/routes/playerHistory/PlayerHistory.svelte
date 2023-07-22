@@ -67,7 +67,7 @@
 			for (let i = currentDay; i > 0; i--) {
 				let state = 'unplayed';
 				console.log(i, 'i');
-				let localState = await localStorage.getItem(`day${i}state`);
+				let localState = await localStorage.getItem(`puzzle${i}state`);
 				if (localState) {
 					state = localState;
 				}

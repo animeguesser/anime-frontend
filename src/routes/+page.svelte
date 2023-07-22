@@ -62,7 +62,7 @@
 		if (browser) {
 			guesses = [];
 			state = 'playing';
-			let localState = localStorage.getItem(`day${selectedDay}state`);
+			let localState = localStorage.getItem(`puzzle${selectedDay}state`);
 			let firstVisit = localStorage.getItem(`firstVisit`);
 			if (firstVisit !== 'no') {
 				showModal = true;
@@ -71,11 +71,11 @@
 			if (localState) {
 				state = localState;
 			} else {
-				localStorage.setItem(`day${selectedDay}state`, state);
+				localStorage.setItem(`puzzle${selectedDay}state`, state);
 			}
 			let tempArr = [];
 			for (let i = 0; i < 6; i++) {
-				let guess = localStorage.getItem(`day${selectedDay}guess${i}`);
+				let guess = localStorage.getItem(`puzzle${selectedDay}guess${i}`);
 
 				if (guess) {
 					tempArr.push(guess);

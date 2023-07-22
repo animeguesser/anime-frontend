@@ -78,16 +78,16 @@
 			attempts[updateIndex] = 'X';
 			selected = updateIndex + 2;
 			guesses[updateIndex] = guess;
-			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
+			localStorage.setItem(`puzzle${currentDay}guess${updateIndex}`, guess);
 			if (updateIndex === 5) {
-				localStorage.setItem(`day${currentDay}state`, 'failed');
+				localStorage.setItem(`puzzle${currentDay}state`, 'failed');
 				attempts[updateIndex] = 'X';
 				currentGame = 'failed';
 				selected = 6;
 			}
 		} else if (guess.trim() === metadata?.answer.trim() && updateIndex >= 0) {
-			localStorage.setItem(`day${currentDay}guess${updateIndex}`, guess);
-			localStorage.setItem(`day${currentDay}state`, 'win');
+			localStorage.setItem(`puzzle${currentDay}guess${updateIndex}`, guess);
+			localStorage.setItem(`puzzle${currentDay}state`, 'win');
 			guesses[updateIndex] = guess;
 			currentGame = 'win';
 			attempts[updateIndex] = 'W';
