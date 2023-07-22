@@ -506,6 +506,14 @@
 	.difficulty-hard {
 		color: var(--color-wrong);
 	}
+
+	.difficulty-extreme {
+		background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		transition: background-image 0.25s ease-in-out;
+	}
+
 	.img {
 		height: 100%;
 		width: 100%;
