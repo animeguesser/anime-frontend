@@ -197,6 +197,16 @@
 			selected = guesses.length;
 		}
 	});
+
+	function getTitle() {
+		if (metadata.answer.toLowerCase() === metadata.eng_title.toLowerCase()) {
+			return metadata.answer;
+		} else if (metadata.eng_title === undefined || metadata.eng_title === "") {
+			return metadata.answer
+		} else {
+			return metadata.answer + " [" + metadata.eng_title + "]";
+		}
+	}
 </script>
 
 {#if metadata.answer}
@@ -277,11 +287,11 @@
 			</Context>
 		{:else if currentGame === 'win'}
 			<div class="game__result">You got it!</div>
-			<div class="game__title">The answer was {metadata.answer}</div>
+			<div class="game__title">The answer was: {getTitle()}</div>
 			<button class="copy__button" on:click={() => copy()}>Copy Result</button>
 		{:else if currentGame === 'failed'}
 			<div class="game__result">You failed!</div>
-			<div class="game__title">The answer was {metadata.answer}</div>
+			<div class="game__title">The answer was: {getTitle()}</div>
 			<button class="copy__button" on:click={() => copy()}>Copy Result</button>
 		{/if}
 
