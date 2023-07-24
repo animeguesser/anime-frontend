@@ -201,10 +201,10 @@
 	function getTitle() {
 		if (metadata.answer.toLowerCase() === metadata.eng_title.toLowerCase()) {
 			return metadata.answer;
-		} else if (metadata.eng_title === undefined || metadata.eng_title === "") {
-			return metadata.answer
+		} else if (metadata.eng_title === undefined || metadata.eng_title === '') {
+			return metadata.answer;
 		} else {
-			return metadata.answer + " [" + metadata.eng_title + "]";
+			return metadata.answer + ' [' + metadata.eng_title + ']';
 		}
 	}
 </script>
@@ -249,7 +249,7 @@
 
 				<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
 				<button
-					disabled={selected === 6 || (attempts[selected] === 'O' && currentGame === 'playing')}
+					disabled={selected === 6 || (attempts[selected - 1] === 'O' && currentGame === 'playing')}
 					on:click={() => switchImage('right')}
 					class="gallery__button"
 				>
