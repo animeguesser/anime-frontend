@@ -199,8 +199,10 @@
 	});
 
 	function getTitle() {
-		if (metadata.answer === metadata.eng_title || metadata.eng_title === undefined) {
+		if (metadata.answer.toLowerCase() === metadata.eng_title.toLowerCase()) {
 			return metadata.answer;
+		} else if (metadata.eng_title === undefined) {
+			return metadata.answer
 		} else {
 			return metadata.answer + " [" + metadata.eng_title + "]";
 		}
