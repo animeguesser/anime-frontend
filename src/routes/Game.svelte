@@ -201,7 +201,7 @@
 	function getTitle() {
 		if (metadata.answer.toLowerCase() === metadata.eng_title.toLowerCase()) {
 			return metadata.answer;
-		} else if (metadata.eng_title === undefined) {
+		} else if (metadata.eng_title === undefined || metadata.eng_title === "") {
 			return metadata.answer
 		} else {
 			return metadata.answer + " [" + metadata.eng_title + "]";
