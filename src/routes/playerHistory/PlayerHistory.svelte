@@ -7,48 +7,6 @@
 	$: history = [];
 	$: selected = 1;
 
-	// const getAttempts = async (game, guesses) => {
-	// 	let attempts = [];
-	// 	for (let i = 0; i < 5; i++) {
-	// 		let attempt = 'O';
-	// 		if (game === 'win') {
-	// 			if (i + 1 === guesses.length) {
-	// 				attempt = 'W';
-	// 				selected = i + 1;
-	// 			} else if (i + 1 > guesses.length) {
-	// 				attempt = 'O';
-	// 			} else {
-	// 				attempt = 'X';
-	// 			}
-	// 		} else if ((game === 'playing' || game === 'failed') && guesses[i]) {
-	// 			if (guesses[i].length > 0) {
-	// 				attempt = 'X';
-	// 			}
-	// 		} else if (game === 'unplayed') {
-	// 			attempt = '?';
-	// 		}
-	// 		if (attempt === 'O' && selected === 1) {
-	// 			selected = i + 1;
-	// 		}
-	// 		attempts.push(attempt);
-	// 	}
-	// 	return attempts;
-	// };
-
-	// const getGuesses = async (day) => {
-	// 	let tempArr = [];
-	// 	for (let i = 0; i < 5; i++) {
-	// 		let guess = localStorage.getItem(`day${day}guess${i}`);
-
-	// 		if (guess) {
-	// 			tempArr.push(guess);
-	// 		}
-	// 		console.log(guess);
-	// 	}
-	// 	console.log('tempArr', tempArr);
-	// 	return tempArr;
-	// };
-
 	const onSelectDay = (e) => {
 		window.location.href = `/?day${e.target.id}`;
 	};

@@ -57,7 +57,7 @@
 		<li class="list-item">
 			Anime Guess is a daily puzzle game inspired by <a
 				href="https://www.nytimes.com/games/wordle/index.html">Wordle</a
-			>, <a href="https://framed.wtf/">Framed</a> and
+			>, <a href="https://framed.wtf/">Framed,</a> and
 			<a href="https://guessthe.game/">GuessTheGame</a>
 		</li>
 		<li class="list-item">
