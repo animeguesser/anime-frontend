@@ -180,7 +180,7 @@
 
 	// lifecylce function to setup for the state of the game
 	onMount(async () => {
-		const metadataRes = await fetch(`https://www.animeguess.moe/days/${currentDay}/metadata.json`, {
+		const metadataRes = await fetch(`https://days.animeguess.moe/${currentDay}/metadata.json`, {
 			method: 'GET',
 			credentials: 'omit', // include, *same-origin, omit
 			headers: {
@@ -248,7 +248,7 @@
 					<Fa icon={faChevronLeft} />
 				</button>
 
-				<img class="img" src={`https://www.animeguess.moe/days/${currentDay}/${selected}.jpg`} />
+				<img class="img" src={`https://days.animeguess.moe/${currentDay}/${selected}.jpg`} />
 				<button
 					disabled={selected === 6 || (attempts[selected - 1] === 'O' && currentGame === 'playing')}
 					on:click={() => switchImage('right')}
