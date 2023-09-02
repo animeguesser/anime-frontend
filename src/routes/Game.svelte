@@ -221,7 +221,6 @@
 				>
 			{/each}
 		</div>
-		<!--  -->
 		<div class="img__container">
 			<div class="gallery__subheader">
 				{#if metadata?.difficulty}
