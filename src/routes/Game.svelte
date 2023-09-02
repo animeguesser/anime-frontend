@@ -229,7 +229,7 @@
 							>{metadata?.difficulty[0].toUpperCase() +
 								metadata?.difficulty.substring(1)}{metadata?.difficulty === 'nice'
 								? ' :)'
-								: null}</span
+								: ''}</span
 						>
 					</div>
 				{/if}
