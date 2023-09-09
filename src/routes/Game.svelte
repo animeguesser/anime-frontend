@@ -250,7 +250,7 @@
 					<Fa icon={faChevronLeft} />
 				</button>
 
-				<img class="img" src={`https://days.animeguess.moe/${currentDay}/${selected}.jpg`} />
+				<img class="img" src={`https://days.animeguess.moe/${currentDay}/${selected}.webp`} onerror="this.onerror=null;this.src='{`https://days.animeguess.moe/${currentDay}/${selected}.jpg`}';"/>
 				<button
 					disabled={selected === 6 || (attempts[selected - 1] === 'O' && currentGame === 'playing')}
 					on:click={() => switchImage('right')}
