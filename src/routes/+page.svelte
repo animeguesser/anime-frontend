@@ -38,8 +38,12 @@
 	// lifecycle function to load data and variables
 	onMount(async () => {
 		// fetch the time left until the next day
-		const res = await fetch('https://api.animeguess.moe/time');
-		const time = await res.json();
+
+		// haitus
+		/*const res = await fetch('https://api.animeguess.moe/time');
+		const time = await res.json();*/
+
+		const time = {"currentDay": 365, "timeUntil": 999999999999999999};
 		timeUntil = await time.timeUntil;
 
 		// check if there is a day value inside of the search params and set variables
@@ -91,6 +95,12 @@
 	<meta name="Anime guesser game" content="Anime guesser game" />
 </svelte:head>
 
+<section>
+	<div class="info_text" style="text-align: center; margin-bottom: 10px; font-weight: 350; color: white; font-size: 1.2rem;">
+		🎉 Thank you for one year of AnimeGuess! 🎉 <br />
+		We will be on a temporary hiatus and will not have new days. Previous days will remain active until we return!
+	</div>
+</section>
 <section>
 	{#if guesses && state !== ''}
 		<Game {state} {guesses} currentDay={selectedDay} />

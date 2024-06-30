@@ -6,8 +6,10 @@
 	let timeUntil = 0;
 	let currentDay = 0;
 	onMount(async () => {
-		const res = await fetch('https://api.animeguess.moe/time');
-		const time = await res.json();
+		// haitus
+		/*const res = await fetch('https://api.animeguess.moe/time');
+		const time = await res.json();*/
+		const time = {"currentDay": 365, "timeUntil": 999999999999999999};
 		timeUntil = await time.timeUntil;
 		currentDay = await time.currentDay;
 	});
