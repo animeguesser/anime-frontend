@@ -98,8 +98,7 @@
 <section>
 	<div class="info_text" style="text-align: center; margin-bottom: 10px; font-weight: 350; color: white; font-size: 1.2rem;">
 		🎉 Thank you for one year of AnimeGuess! 🎉 <br />
-		We will be on a temporary hiatus and will be unable to update with new days <br /> 
-		Previous days will remain active until we return!
+		We will be on temporary hiatus; New days will not be added but previous days will remain active!
 	</div>
 </section>
 <section>
