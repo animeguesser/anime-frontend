@@ -100,8 +100,6 @@
 		🎉 Thank you for one year of AnimeGuess! 🎉 <br />
 		We will be on temporary hiatus; New days will not be added but previous days will remain active!
 	</div>
-</section>
-<section>
 	{#if guesses && state !== ''}
 		<Game {state} {guesses} currentDay={selectedDay} />
 	{/if}
