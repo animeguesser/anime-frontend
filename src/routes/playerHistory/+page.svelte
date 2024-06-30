@@ -23,7 +23,7 @@
 	{#if currentDay > 0}
 		<PlayerHistory {currentDay} />
 	{/if}
-	<Clock {timeUntil} />
+	<!--hiatus <Clock {timeUntil} />-->
 </section>
 
 <style>
